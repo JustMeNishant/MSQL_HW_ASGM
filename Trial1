@@ -1,0 +1,71 @@
+CREATE TABLE IF NOT EXISTS `hospital80625`.`DOCTOR_MASTER` (
+  `doctor_id` VARCHAR(5) NOT NULL,
+  `doctor_name` VARCHAR(15) NOT NULL,
+  `Dept` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`doctor_id`),
+  UNIQUE INDEX `doctor_id_UNIQUE` (`doctor_id` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hospital80625`.`ROOM_MASTER`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `hospital80625`.`ROOM_MASTER` (
+  `room_no` VARCHAR(15) NOT NULL,
+  `room_type` VARCHAR(45) NOT NULL,
+  `status` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`room_no`),
+  UNIQUE INDEX `room_no_UNIQUE` (`room_no` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hospital80625`.`PATIENT_MASTER`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `hospital80625`.`PATIENT_MASTER` (
+  `pid` VARCHAR(15) NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `age` INT NULL,
+  `Weight` INT NULL,
+  `Gencher` VARCHAR(10) NULL,
+  `Address` VARCHAR(45) NULL,
+  `phoneno` VARCHAR(10) NULL,
+  `Disease` VARCHAR(45) NULL,
+  `Doctor_id` VARCHAR(5) NULL,
+  `DOCTOR_MASTER_doctor_id` VARCHAR(5) NOT NULL,
+  PRIMARY KEY (`pid`, `DOCTOR_MASTER_doctor_id`),
+  INDEX `fk_PATIENT_MASTER_DOCTOR_MASTER1_idx` (`DOCTOR_MASTER_doctor_id` ASC),
+  CONSTRAINT `fk_PATIENT_MASTER_DOCTOR_MASTER1`
+    FOREIGN KEY (`DOCTOR_MASTER_doctor_id`)
+    REFERENCES `hospital80625`.`DOCTOR_MASTER` (`doctor_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hospital80625`.`ROOM_ALLOCATION`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `hospital80625`.`ROOM_ALLOCATION` (
+  `room_no` VARCHAR(15) NOT NULL,
+  `pid` VARCHAR(15) NULL,
+  `admission_date` DATE NULL,
+  `Release_date` DATE NULL,
+  `PATIENT_MASTER_pid` VARCHAR(15) NOT NULL,
+  `ROOM_MASTER_room_no` VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`room_no`, `PATIENT_MASTER_pid`, `ROOM_MASTER_room_no`),
+  INDEX `fk_ROOM_ALLOCATION_PATIENT_MASTER_idx` (`PATIENT_MASTER_pid` ASC) ,
+  INDEX `fk_ROOM_ALLOCATION_ROOM_MASTER1_idx` (`ROOM_MASTER_room_no` ASC) ,
+  CONSTRAINT `fk_ROOM_ALLOCATION_PATIENT_MASTER`
+    FOREIGN KEY (`PATIENT_MASTER_pid`)
+    REFERENCES `hospital80625`.`PATIENT_MASTER` (`pid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ROOM_ALLOCATION_ROOM_MASTER1`
+    FOREIGN KEY (`ROOM_MASTER_room_no`)
+    REFERENCES `hospital80625`.`ROOM_MASTER` (`room_no`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
