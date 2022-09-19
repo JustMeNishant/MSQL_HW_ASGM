@@ -84,6 +84,13 @@ select * from ROOM_MASTER;
 describe PATIENT_MASTER;
 insert into PATIENT_MASTER(pid,name,age,Weight,Gender,Address,phoneno,Disease,doctor_id)values('P0001', 'Gita', 35, 65, 'F', 'Chennai', '9867145678', 'Eye Infection', 'D0003'),('P0002', 'Ashish', 40, 70, 'M', 'Delhi', '9845675678', 'Asthma', 'D0003'),('P0003', 'Radha', 25, 60, 'F', 'Chennai', '9867166678', 'Pain in heart', 'D0005'),('P0004', 'Chandra', 28, 55, 'F', 'Bangalore', '9978675567', 'Asthma', 'D0001'),('P0005', 'Goyal', 42, 65, 'M', 'Delhi', '8967533223', 'Pain in Stomach', 'D0004');
 select * from PATIENT_MASTER;
+
 describe ROOM_ALLOCATION;
 insert into ROOM_ALLOCATION(room_no,pid,admission_date,Release_date)values('R0001','P0001','15/10/16','26/10/16'),('R0002','P0002','15/11/16','26/11/16'),('R0002','P0003','01/12/16','30/12/16'),('R0004','P0001','01/01/17','30/01/17');
 select * from ROOM_ALLOCATION;
+
+Queries:
+2. select * from PATIENT_MASTER where Disease!= 'Asthma' && Gender= 'F';
+3. SELECT COUNT(CASE WHEN UPPER(Gender) = 'M' THEN 1 END) Male,COUNT(CASE WHEN UPPER(Gender) = 'F' THEN 1 END) Female,COUNT(CASE WHEN Gender IS NULL THEN 1 END) 'Not Assigned' FROM PATIENT_MASTER;
+4. select  PATIENT_MASTER.pid,name,PATIENT_MASTER.doctor_id,doctor_name,ROOM_ALLOCATION.room_no,room_type,admission_date from  ROOM_ALLOCATION,PATIENT_MASTER, DOCTOR_MASTER,ROOM_MASTER where PATIENT_MASTER.pid=ROOM_ALLOCATION.pid and PATIENT_MASTER.doctor_id=DOCTOR_MASTER.doctor_id and ROOM_ALLOCATION.room_no=ROOM_MASTER.room_no;
+5. select room_no from ROOM_MASTER where room_no not in (select r.room_no  from ROOM_MASTER r,ROOM_ALLOCATION ra ,PATIENT_MASTER p where p.pid=ra.pid and r.room_no=ra.room_no );
