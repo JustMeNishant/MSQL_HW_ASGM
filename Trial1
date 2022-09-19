@@ -1,3 +1,9 @@
+CREATE SCHEMA IF NOT EXISTS `hospital80625` DEFAULT CHARACTER SET utf8 ;
+USE `hospital80625` ;
+
+-- -----------------------------------------------------
+-- Table `hospital80625`.`DOCTOR_MASTER`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hospital80625`.`DOCTOR_MASTER` (
   `doctor_id` VARCHAR(5) NOT NULL,
   `doctor_name` VARCHAR(15) NOT NULL,
@@ -27,16 +33,15 @@ CREATE TABLE IF NOT EXISTS `hospital80625`.`PATIENT_MASTER` (
   `name` VARCHAR(45) NULL,
   `age` INT NULL,
   `Weight` INT NULL,
-  `Gencher` VARCHAR(10) NULL,
+  `Gender` VARCHAR(10) NULL,
   `Address` VARCHAR(45) NULL,
   `phoneno` VARCHAR(10) NULL,
   `Disease` VARCHAR(45) NULL,
-  `Doctor_id` VARCHAR(5) NULL,
-  `DOCTOR_MASTER_doctor_id` VARCHAR(5) NOT NULL,
-  PRIMARY KEY (`pid`, `DOCTOR_MASTER_doctor_id`),
-  INDEX `fk_PATIENT_MASTER_DOCTOR_MASTER1_idx` (`DOCTOR_MASTER_doctor_id` ASC),
-  CONSTRAINT `fk_PATIENT_MASTER_DOCTOR_MASTER1`
-    FOREIGN KEY (`DOCTOR_MASTER_doctor_id`)
+  `doctor_id` VARCHAR(5) NOT NULL,
+  PRIMARY KEY (`pid`, `doctor_id`),
+  INDEX `fk_PATIENT_MASTER_idx` (`doctor_id` ASC) ,
+  CONSTRAINT `fk_PATIENT_MASTER`
+    FOREIGN KEY (`doctor_id`)
     REFERENCES `hospital80625`.`DOCTOR_MASTER` (`doctor_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -48,24 +53,37 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hospital80625`.`ROOM_ALLOCATION` (
   `room_no` VARCHAR(15) NOT NULL,
-  `pid` VARCHAR(15) NULL,
+  `pid` VARCHAR(15) NOT NULL,
   `admission_date` DATE NULL,
   `Release_date` DATE NULL,
-  `PATIENT_MASTER_pid` VARCHAR(15) NOT NULL,
-  `ROOM_MASTER_room_no` VARCHAR(15) NOT NULL,
-  PRIMARY KEY (`room_no`, `PATIENT_MASTER_pid`, `ROOM_MASTER_room_no`),
-  INDEX `fk_ROOM_ALLOCATION_PATIENT_MASTER_idx` (`PATIENT_MASTER_pid` ASC) ,
-  INDEX `fk_ROOM_ALLOCATION_ROOM_MASTER1_idx` (`ROOM_MASTER_room_no` ASC) ,
-  CONSTRAINT `fk_ROOM_ALLOCATION_PATIENT_MASTER`
-    FOREIGN KEY (`PATIENT_MASTER_pid`)
-    REFERENCES `hospital80625`.`PATIENT_MASTER` (`pid`)
+  PRIMARY KEY (`room_no`, `pid`),
+  INDEX `fk_ROOM_ALLOCATION_idx` (`pid` ASC) ,
+  CONSTRAINT `fk_ROOM_ALLOCATION_ROOM_MASTER1`
+    FOREIGN KEY (`room_no`)
+    REFERENCES `hospital80625`.`ROOM_MASTER` (`room_no`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ROOM_ALLOCATION_ROOM_MASTER1`
-    FOREIGN KEY (`ROOM_MASTER_room_no`)
-    REFERENCES `hospital80625`.`ROOM_MASTER` (`room_no`)
+  CONSTRAINT `fk_ROOM_ALLOCATION_PATIENT_MASTER1`
+    FOREIGN KEY (`pid`)
+    REFERENCES `hospital80625`.`PATIENT_MASTER` (`pid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
+
+
+describe ROOM_ALLOCATION;
+insert into DOCTOR_MASTER(doctor_id,doctor_name,Dept)values('D0001','Ram','ENT'),('D0002','Rajan','ENT'),('D0003','Smita','Eye'),('D0004','Bhavan','Surgery'),('D0005','Sheela','Surgery');
+select * from DOCTOR_MASTER;
+describe ROOM_MASTER;
+
+insert into ROOM_MASTER(room_no,room_type,status)values('R0001','AC','occupied'),('R0002',	'Suite','vacant'),('R0003','NonAC',	'vacant'),('R0004','NonAC',	'occupied'),('R0005','AC','vacant'),('R0006','AC','occupied');
+select * from ROOM_MASTER;
+
+describe PATIENT_MASTER;
+insert into PATIENT_MASTER(pid,name,age,Weight,Gender,Address,phoneno,Disease,doctor_id)values('P0001', 'Gita', 35, 65, 'F', 'Chennai', '9867145678', 'Eye Infection', 'D0003'),('P0002', 'Ashish', 40, 70, 'M', 'Delhi', '9845675678', 'Asthma', 'D0003'),('P0003', 'Radha', 25, 60, 'F', 'Chennai', '9867166678', 'Pain in heart', 'D0005'),('P0004', 'Chandra', 28, 55, 'F', 'Bangalore', '9978675567', 'Asthma', 'D0001'),('P0005', 'Goyal', 42, 65, 'M', 'Delhi', '8967533223', 'Pain in Stomach', 'D0004');
+select * from PATIENT_MASTER;
+describe ROOM_ALLOCATION;
+insert into ROOM_ALLOCATION(room_no,pid,admission_date,Release_date)values('R0001','P0001','15/10/16','26/10/16'),('R0002','P0002','15/11/16','26/11/16'),('R0002','P0003','01/12/16','30/12/16'),('R0004','P0001','01/01/17','30/01/17');
+select * from ROOM_ALLOCATION;
