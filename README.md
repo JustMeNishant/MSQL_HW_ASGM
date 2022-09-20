@@ -12,5 +12,4 @@ select * from ROOM_MASTER;
  (R0001,P0001,15-oct-16,26-oct-16),(R0002,P0002,	15-nov-16,26-nov-16),(R0002,P0003,01-dec-16,	30-dec-16),(R0004,P0001,01-jan-17,	30-jan-17);
 
 
-SELECT* FROM   
-ROOM_MASTER where your date-column < '2013-12-13' and your date-column >= '2013-12-12
+SELECT* FROM   ROOM_MASTER where admission_date < '2013-12-13' and admission_date >= '2013-12-12;
