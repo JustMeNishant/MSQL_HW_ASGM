@@ -25,4 +25,7 @@ Flight
 Booking
 (B0001,	F0001,	01-dec-12),(B0002,	F0004,	02-dec-12),(B0003,	F0005,	03-dec-12),(B0004,	F0003,	04-dec-12),(B0005,	F0001,	02-dec-12),(B0006,	F0004,	02-dec-12),(B0007,	F0003,	02-dec-16);
 
+booking_details
+(B0001,P0001),(B0001,P0002),(B0001,P0003),(B0002,P0004),(B0002,P0005),(B0003,P0006),(B0003,	P0001),(B0004,P0002),(B0005,P0003);
+
 select p.name , a.admission_date from PATIENT _MASTER P , ROOM_ALLOCATION a where p.pid = a.pid AND month(a.admission_date) = 01 ;
