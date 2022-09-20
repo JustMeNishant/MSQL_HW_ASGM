@@ -13,3 +13,16 @@ select * from ROOM_MASTER;
 
 
 SELECT* FROM   ROOM_MASTER where admission_date < '2013-12-13' and admission_date >= '2013-12-12;
+
+_________________________
+Passenger
+(P0001,Ram,Ram@gmail.com,01-dec-80),(P0002,Rajan,Rajan@gmail.com,11-nov-39),(P0003,Smita,Smita@gmail.com,06-feb-88),(P0004,Bhavan,Bhavan@gmail.com,18-sep-73)(P0005,Sheela,Sheela@gmail.com,09-may-76),(P0006,Nethra,Nethra@gmail.com,08-oct-55);
+
+Flight
+(F0001,	Kolkata,	Hyderabad,	01-dec-12,	100,	2000),(F0002,	Chennai,	Hyderabad,	02-dec-12,	100,	3000),(F0003,	Pune,	Kolkata,	02-dec-12,	100,	2500),(F0004,	Bangalore,	Pune,	18-nov-12,	100,	2300),(F0005,	Hyderabad,	Bangalore,	09-apr-12,	100,	2600),(F0006,	Pune,	Hyderabad,	08-aug-12,	100,	3500),(F0007,	Pune,	Kolkata,	04-dec-12,	100,	2900)
+(F0008,	Kolkata,	Hyderabad,	06-dec-12,	100,	3500);
+
+Booking
+(B0001,	F0001,	01-dec-12),(B0002,	F0004,	02-dec-12),(B0003,	F0005,	03-dec-12),(B0004,	F0003,	04-dec-12),(B0005,	F0001,	02-dec-12),(B0006,	F0004,	02-dec-12),(B0007,	F0003,	02-dec-16);
+
+select p.name , a.admission_date from PATIENT _MASTER P , ROOM_ALLOCATION a where p.pid = a.pid AND month(a.admission_date) = 01 ;
