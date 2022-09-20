@@ -19,7 +19,7 @@ Passenger
 (P0001,Ram,Ram@gmail.com,01-dec-80),(P0002,Rajan,Rajan@gmail.com,11-nov-39),(P0003,Smita,Smita@gmail.com,06-feb-88),(P0004,Bhavan,Bhavan@gmail.com,18-sep-73)(P0005,Sheela,Sheela@gmail.com,09-may-76),(P0006,Nethra,Nethra@gmail.com,08-oct-55);
 
 Flight
-(F0001,	Kolkata,	Hyderabad,	01-dec-12,	100,	2000),(F0002,	Chennai,	Hyderabad,	02-dec-12,	100,	3000),(F0003,	Pune,	Kolkata,	02-dec-12,	100,	2500),(F0004,	Bangalore,	Pune,	18-nov-12,	100,	2300),(F0005,	Hyderabad,	Bangalore,	09-apr-12,	100,	2600),(F0006,	Pune,	Hyderabad,	08-aug-12,	100,	3500),(F0007,	Pune,	Kolkata,	04-dec-12,	100,	2900)
+(F0001, Kolkata, Hyderabad, 2012/12/01, 100, 2000),(F0002, Chennai, Hyderabad, 2012/12/02, 100, 3000),(F0003, Pune, Kolkata, 2012/12/02, 100, 2500),(F0004, Bangalore, Pune, 2012/11/18, 100, 2300),(F0005, Hyderabad, Bangalore, 2012/04/09, 100, 2600),(F0006, Pune, Hyderabad, 2012/08/08, 100, 3500),(F0007, Pune, Kolkata, 2012/12/04, 100, 2900) (F0008, Kolkata, Hyderabad, 2012/12/06, 100, 3500);
 (F0008,	Kolkata,	Hyderabad,	06-dec-12,	100,	3500);
 
 Booking
